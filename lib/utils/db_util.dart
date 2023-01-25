@@ -24,7 +24,10 @@ class DBUtil {
   static Future<List<Map<String, Object?>>> getData(String table) async{
     final db = await DBUtil.database();
     return db.query(table);
+  }
 
-    
+  static Future<int> deleteTable(String table) async{
+    final db = await DBUtil.database();
+    return db.delete(table);
   }
 }
