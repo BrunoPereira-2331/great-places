@@ -4,7 +4,7 @@ Created with flutter, the idea is to register places the user may find interesst
 
 
 
-<img src="./images/home.png=100x20" alt="home screen" width="200" height="200" />
+<img src="./images/home.png" alt="home screen" width="200" height="200" />
 <!-- ![home](./images/home.png=100x20)
 ![new-place-form](./images/new-place-form.png=100x20)
 ![select-location](./images/select-location.png=100x20)
