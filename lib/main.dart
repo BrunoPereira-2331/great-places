@@ -13,20 +13,30 @@ void main() {
 }
 
 setSharedPreferencesData() async {
-  await DotEnv().load(fileName: '.env');
+  await dotenv.load(fileName: '.env');
   Future<SharedPreferences> shared = SharedPreferences.getInstance();
   shared.then((sharedData) {
-    String googleMapsApiKey = DotEnv().env['GOOGLE_MAPS_API_KEY'] ?? "";
+    String googleMapsApiKey = dotenv.env['GOOGLE_MAPS_API_KEY'] ?? "";
     sharedData.setString("google_maps_api_key", googleMapsApiKey);
   });
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  void initState() {
     setSharedPreferencesData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     final ThemeData theme = ThemeData();
     return ChangeNotifierProvider(

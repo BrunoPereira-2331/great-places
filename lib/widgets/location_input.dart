@@ -21,8 +21,8 @@ class _LocationInputState extends State<LocationInput> {
     _getCurrentUserLocation();
   }
 
-  void _showPreview(double latitude, double longitude) {
-    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
+  void _showPreview(double latitude, double longitude) async {
+    final String staticMapImageUrl = await LocationUtil.generateLocationPreviewImage(
         latitude: latitude, longitude: longitude);
     setState(() {
       _previewImageUrl = staticMapImageUrl;
@@ -48,7 +48,7 @@ class _LocationInputState extends State<LocationInput> {
       return;
     }
 
-    _showPreview(selectedPosition.latitude ?? 0.00, selectedPosition.longitude ?? 0.00);
+    _showPreview(selectedPosition.latitude, selectedPosition.longitude);
     widget.onSelectPosition!(LatLng(selectedPosition.latitude, selectedPosition.longitude));
   }
 
