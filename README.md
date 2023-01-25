@@ -1,17 +1,12 @@
-# great_places
+### great_places
 
-A new Flutter project.
+Created with flutter, the idea is to register places the user may find interessting, such a trip to another city, bars, monuments, etc.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+![home](./images/home.png)
+![new-place-form](./images/new-place-form.png.png)
+![select-location](./images/select-location.png)
+![-place-form-info](./images/new-place-form-info.png)
+![-home-with-places](./images/home-with-places.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# great-places
