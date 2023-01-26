@@ -24,7 +24,7 @@ class GreatPlaces with ChangeNotifier {
           location: PlaceLocation(
             latitude: double.parse(place['latitude'].toString()),
             longitude: double.parse(place['longitude'].toString()),
-            address: place['address'].toString()
+            address: place['address'].toString(),
           ),
         );
       },
@@ -66,6 +66,12 @@ class GreatPlaces with ChangeNotifier {
       'longitude': position.longitude,
       'address': address,
     });
+    notifyListeners();
+  }
+
+  Future<void> deleteById(String id) async {
+    _items.removeWhere((place) => place.id == id);
+    await DBUtil.deleteById('places', id);
     notifyListeners();
   }
 }
