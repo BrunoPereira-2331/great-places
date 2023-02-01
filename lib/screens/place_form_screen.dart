@@ -17,8 +17,9 @@ class PlaceFormScreen extends StatefulWidget {
 
 class _PlaceFormScreenState extends State<PlaceFormScreen> {
   final _titleController = TextEditingController();
-  late File _selectedImage;
+  File? _selectedImage;
   LatLng? _pickedPosition;
+  final _formKey = GlobalKey<FormState>();
 
   void _submitForm() {
     if (!_isvalidForm()) {
@@ -27,7 +28,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
 
     Provider.of<GreatPlaces>(context, listen: false).addPlace(
       _titleController.text,
-      _selectedImage,
+      _selectedImage!,
       _pickedPosition!,
     );
     Navigator.of(context).pop();
@@ -46,12 +47,13 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   }
 
   bool _isvalidForm() {
-    return _titleController.text.isNotEmpty && _pickedPosition != null;
+    return _formKey.currentState!.validate() && _titleController.text.isNotEmpty && _pickedPosition != null && _selectedImage != null;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("New Place"),
       ),
@@ -61,23 +63,33 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _titleController,
-                    decoration: const InputDecoration(
-                      labelText: "Title",
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _titleController,
+                      onEditingComplete: () =>
+                          _isvalidForm() ? _submitForm() : null,
+                      validator: (text) {
+                        return text == null || text.isEmpty
+                          ? "Required field"
+                          : null;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: "Title",
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  ImageInput(
-                    onSelectImage: _selectImage,
-                  ),
-                  const SizedBox(height: 10),
-                  LocationInput(
-                    onSelectPosition: _selectPosition,
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    ImageInput(
+                      onSelectImage: _selectImage,
+                    ),
+                    const SizedBox(height: 10),
+                    LocationInput(
+                      onSelectPosition: _selectPosition,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
